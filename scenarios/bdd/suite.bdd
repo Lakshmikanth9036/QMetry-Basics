@@ -1,0 +1,21 @@
+SCENARIO: Sample Test
+META-DATA: {"dataFile":"resources/data/testdata.csv","description":"Sample Test Scenario", "groups":["SMOKE"], "enabled":false}
+
+	Given get '/'
+	When search for 'qaf github'
+	Then verify link with partial text 'qaf' is present
+	And I want to print '${username}' and '${password}'
+	
+END
+
+SCENARIO: Login Test
+META-DATA: {"dataFile":"resources/data/testdata.csv","description":"Sample Test Scenario", "groups":["SMOKE"], "enabled":true}
+
+	Given get 'http://adactinhotelapp.com/'
+	sendKeys '${username}' into 'login.username.txt'
+	sendKeys '${password}' into 'login.password.txt'
+	click on 'login.submit.btn'
+	verify 'login.showusername.txt' is present
+	verify 'login.showusername.txt' attribute 'value' value is 'Hello ${username}!'
+	
+END
